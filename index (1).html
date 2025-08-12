@@ -25,7 +25,34 @@
     <h2>Dirección</h2>
     <input id="direccion" type="text" placeholder="Ej.: SIMON GUERRERO 3131 (Villa 15 Oculta)" 
       style="width:100%;height:44px;border-radius:12px;border:1px solid #1f2937;background:#0b1221;color:#e5e7eb;padding:10px;">
+  
+  <section>
+    <h2>Hospital</h2>
+    <select id="hospital" style="width:100%;height:44px;border-radius:12px;border:1px solid #1f2937;background:#0b1221;color:#e5e7eb;padding:10px;">
+<option value="">Seleccione un hospital</option>
+    <option>PENNA</option>
+    <option>ARGERICH</option>
+    <option>R. MEJIA</option>
+    <option>FERNANDEZ</option>
+    <option>RIVADAVIA</option>
+    <option>PIROVANO</option>
+    <option>TORNU</option>
+    <option>SANTOJANNI</option>
+    <option>PIÑERO</option>
+    <option>GRIERSON</option>
+    <option>ZUBIZARRETA</option>
+    <option>VELEZ SARSF.</option>
+    <option>ALVAREZ</option>
+    <option>DURAND</option>
+    <option>MUÑIZ</option>
+    <option>SANTA LUCIA</option>
+    <option>GUTIERREZ</option>
+    <option>ELIZALDE</option>
+    <option>OTROS</option>
+    </select>
   </section>
+
+</section>
 
   <section>
     <h2>Sexo</h2>
@@ -295,6 +322,18 @@
 
   // Inputs texto
   $('#titulo').addEventListener('input', (e)=>{ localStorage.setItem(TITLE_KEY, e.target.value); updateSaved(); });
+
+  // --- Hospital (select persistente) ---
+  const HOSPITAL_KEY = 'hospital_select';
+  const $hospital = document.getElementById('hospital');
+  if ($hospital) {
+    $hospital.value = localStorage.getItem(HOSPITAL_KEY) || '';
+    $hospital.addEventListener('change', (e) => {
+      localStorage.setItem(HOSPITAL_KEY, e.target.value);
+      updateSaved && updateSaved();
+    });
+  }
+
   $('#direccion').addEventListener('input', (e)=>{ localStorage.setItem(DIR_KEY, e.target.value); updateSaved(); });
   $('#notas').addEventListener('input', (e)=>{ localStorage.setItem(NOTE_KEY, e.target.value); updateSaved(); });
 
@@ -335,7 +374,8 @@
     const d = k => get(k);
     const lines = [
       `Incidente: ${(localStorage.getItem(TITLE_KEY)||'').trim()}`,
-      `Dirección: ${(localStorage.getItem(DIR_KEY)||'').trim()}`,
+      \1
+      `Hospital: ${(localStorage.getItem('hospital_select')||'').trim()}`,
       ``,
       `Hasta ahora ${totalPacientes()} pacientes`,
       ``,
@@ -379,7 +419,8 @@
 
     const lines = [
       `Incidente: ${titulo}`,
-      `Dirección: ${direccion}`,
+      \1
+      `Hospital: ${(localStorage.getItem('hospital_select')||'').trim()}`,
       ``,
       `Hasta ahora ${total} pacientes`,
       ``,
@@ -447,7 +488,8 @@
     const total = get('proc_atendidos') + get('proc_trasladados');
     const lines = [
       `Incidente: ${(localStorage.getItem('titulo_text')||'').trim()}`,
-      `Dirección: ${(localStorage.getItem('direccion_text')||'').trim()}`,
+      \1
+      `Hospital: ${(localStorage.getItem('hospital_select')||'').trim()}`,
       ``,
       `Hasta ahora ${total} pacientes`,
       ``,
@@ -527,7 +569,8 @@
     const total = get('proc_atendidos') + get('proc_trasladados');
     const lines = [
       `Incidente: ${(localStorage.getItem('titulo_text')||'').trim()}`,
-      `Dirección: ${(localStorage.getItem('direccion_text')||'').trim()}`,
+      \1
+      `Hospital: ${(localStorage.getItem('hospital_select')||'').trim()}`,
       ``,
       `Hasta ahora ${total} pacientes`,
       ``,
